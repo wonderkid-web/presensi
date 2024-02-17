@@ -8,41 +8,6 @@ import { collectionAbsensiKeluar, collectionAbsensiMasuk } from "@/firebase/conf
 import { useSession } from "next-auth/react";
 
 export default function Page() {
-  const { data } = useSession();
-
-  const absenMasuk = async () => {
-    const dataAbsenMasuk = {
-      ...data.user,
-      waktu: Date.now(),
-    };
-    toast.promise(addDoc(collectionAbsensiMasuk, dataAbsenMasuk), {
-      loading: "Proses Menambahkan Absen Masuk",
-      success: () => {
-        return `Absensi Masuk berhasil dibuat`;
-      },
-      error: () => {
-        return `Data Absensi Masuk Gagal Dibuat`;
-      },
-    });
-  };
-  const absensiKeluar = async () => {
-    const dataAbsenKeluar = {
-      ...data.user,
-      waktu: Date.now(),
-    };
-    toast.promise(addDoc(collectionAbsensiKeluar, dataAbsenKeluar), {
-      loading: "Proses Menambahkan Absen Keluar",
-      success: () => {
-        return `Absensi Keluar berhasil dibuat`;
-      },
-      error: () => {
-        return `Data Absensi Keluar Gagal Dibuat`;
-      },
-    });
-  };
-
-
-
   return (
     <div className="p-8">
       <Tabs defaultValue="masuk" className="max-w-[90vw]">
@@ -66,8 +31,6 @@ export default function Page() {
         </TabsContent>
       </Tabs>
 
-      <button onClick={absenMasuk}>masuk</button>
-      <button onClick={absensiKeluar}>keluar</button>
     </div>
   );
 }

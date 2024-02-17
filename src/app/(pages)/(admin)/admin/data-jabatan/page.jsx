@@ -45,7 +45,7 @@ export default function Page() {
 
   return (
     <div className="p-8">
-      <h1 className=" text-2xl font-semibold">Data jabatan</h1>
+      <h1 className=" text-2xl text-slate-700 font-semibold">Data jabatan</h1>
       <div className="mt-6">
         <form
           onSubmit={handleSubmit(submitJabatan)}
@@ -65,13 +65,13 @@ export default function Page() {
 
       <table className="w-full mt-6 bg-white">
         <thead>
-          <tr className="border">
+          <tr className="border text-slate-700">
             <th className=" p-2">No</th>
             <th className=" p-2">Jabatan</th>
             <th className=" p-2">Aksi</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="text-slate-600">
           {data?.map((item, i) => (
             <tr key={uuid()} className=" border text-center">
               <td className=" p-2">{i + 1}</td>

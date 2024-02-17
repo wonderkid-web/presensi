@@ -1,4 +1,7 @@
 
+import TableIzin from "@/components/admin/table/TableIzin";
+import { Suspense } from "react";
+
 export default function page() {
   const data = [
     {
@@ -44,32 +47,18 @@ export default function page() {
   ];
 
   return (
-    <div className=" p-8">
-      <h1 className=" text-2xl font-semibold">Data Keterangan</h1>
-      <table className=" w-full mt-6 bg-white rounded-md">
-        <tr className=" border">
-          <th className=" p-4">No</th>
-          <th className=" p-4">ID pegawai</th>
-          <th className=" p-4">Nama</th>
-          <th className=" p-4">Keterangan</th>
-          <th className=" p-4">Alasan</th>
-          <th className=" p-4">Waktu</th>
-          <th className=" p-4">Bukti</th>
-          <th className=" p-4">Aksi</th>
-        </tr>
-        {data.map((items) => (
-          <tr key={items.id_pegawai} className=" border">
-            <td className=" p-4">{items.no}</td>
-            <td className=" p-4">{items.id_pegawai}</td>
-            <td className=" p-4">{items.nama}</td>
-            <td className=" p-4">{items.ket}</td>
-            <td className=" p-4">{items.alasan}</td>
-            <td className=" p-4">{items.waktu}</td>
-            <td className=" p-4">{items.bukti}</td>
-            <td className=" p-4">{items.aksi}</td>
-          </tr>
-        ))}
-      </table>
+    <div className="max-w-[100vw] p-8">
+      <div className="p-8 flex flex-col mx-auto gap-5 max-w-[75vw]">
+        <h1 className="text-2xl text-slate-700 font-semibold">
+          Table Izin Pegawai
+        </h1>
+
+        <div className="max-w-[85vw] overflow-auto bg-white rounded-md">
+          <Suspense fallback={<h1 className="text-center">Loading...</h1>}>
+            <TableIzin />
+          </Suspense>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import {
   auth,
   collectionAdmin,
+  collectionIzin,
   collectionPegawai,
   storage,
 } from "@/firebase/config";
@@ -9,7 +10,7 @@ import {
   signInWithEmailAndPassword,
   updateCurrentUser,
 } from "firebase/auth";
-import { addDoc, deleteDoc } from "firebase/firestore";
+import { addDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { signIn, signOut } from "next-auth/react";
 import uuid from "react-uuid";
@@ -23,8 +24,8 @@ export const siginin = async (email, password) => {
       return signIn("credentials", { redirect: false, email, password });
     }
   } catch (error) {
-    console.log('error di signin')
-    console.log(error.message)
+    console.log("error di signin");
+    console.log(error.message);
   }
 };
 
@@ -72,8 +73,7 @@ export const uploadImage = async (image) => {
   return link;
 };
 
-
-export const deleteData = async (docRef, subject) =>{
+export const deleteData = async (docRef, subject) => {
   toast.promise(deleteDoc(docRef), {
     loading: `Proses Menghapus ${subject}`,
     success: () => "Proses Berhasil",
@@ -82,4 +82,26 @@ export const deleteData = async (docRef, subject) =>{
       return `Data ${subject} berhasil dihapus`;
     },
   });
-}
+};
+
+
+export const updateStatus = async (docRef, subject) => {
+  toast.promise(updateDoc(docRef, {status: "distuju"}), {
+    loading: `Proses Menyetujui Surat ${subject}`,
+    success: () => "Proses Berhasil",
+    error: () => "Proses Gagal",
+    description: () => {
+      return `Surat ${subject} berhasil dihapus`;
+    },
+  });
+};
+
+export const addIzin = async (user) => {
+  try {
+    const newUser = await addDoc(collectionIzin, user);
+    return newUser.id;
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+};

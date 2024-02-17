@@ -27,5 +27,6 @@ const collectionAbsensiKeluar = collection(store, 'absensi_keluar')
 const collectionJabatan = collection(store, 'jabatan')
 const collectionPegawai = collection(store, 'pegawai')
 const collectionAdmin = collection(store, 'admin')
+const collectionIzin = collection(store, 'izin')
 
-export {store, auth, app, collectionAbsensiMasuk, collectionAbsensiKeluar, collectionJabatan, collectionPegawai, collectionAdmin, storage}
+export {store, auth, app, collectionAbsensiMasuk, collectionAbsensiKeluar, collectionJabatan, collectionPegawai, collectionAdmin, collectionIzin, storage}
