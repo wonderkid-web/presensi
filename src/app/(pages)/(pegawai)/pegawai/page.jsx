@@ -42,11 +42,11 @@ export default function Page() {
   };
 
   return (
-    <div className="grid grid-cols-2 h-[60vh] gap-3 p-4">
-      <button  onClick={absenMasuk} className="p-4 rounded font-bold text-white bg-emerald-500 flex justify-center items-center">
+    <div className="flex h-screen flex-col gap-3 p-4">
+      <button  onClick={absenMasuk} className="p-4 text-[3.5rem] h-[50%] rounded font-bold text-white bg-emerald-500 flex justify-center items-center">
         <span>Absen Masuk</span> <BsPersonCheck />
       </button>
-      <button  onClick={absensiKeluar} className="p-4 rounded font-bold text-white bg-rose-600 flex justify-center items-center">
+      <button  onClick={absensiKeluar} className="p-4 text-[3.5rem] rounded h-[50%] font-bold text-white bg-rose-600 flex justify-center items-center">
         <span>Absen Keluar</span> <IoMdExit />
       </button>
     </div>

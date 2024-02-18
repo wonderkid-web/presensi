@@ -10,6 +10,10 @@ const nextConfig = {
             protocol: "https",
             hostname: "static.wikia.nocookie.net",
           },
+          {
+            protocol: "https",
+            hostname: "www.ptpn4.co.id",
+          },
         ],
       },
 };

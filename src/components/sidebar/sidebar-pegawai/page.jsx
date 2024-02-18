@@ -15,7 +15,7 @@ export default function Page() {
   const {data:session} = useSession()
 
   return (
-    <div className=" border h-[135vh] shadow bg-white">
+    <div className=" border min-h-screen shadow bg-white">
       <div>
         <div className="px-2 py-3 border-b flex flex-col relative">
           <p className="text-slate-700 text-[0.90rem] font-semibold">
@@ -32,13 +32,13 @@ export default function Page() {
             />
           </div>
         </div>
-        <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
+        {/* <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <AiOutlineHome />
           <Link href={"/pegawai/dashboard"}>Dashboard</Link>
-        </div>
+        </div> */}
         <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <RiAdminLine />
-          <Link href={"/pegawai/pegawai"}>Pegawai</Link>
+          <Link href={"/pegawai"}>Pegawai</Link>
         </div>
         <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <MdOutlineContactMail />

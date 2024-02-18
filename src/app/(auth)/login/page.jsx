@@ -24,7 +24,7 @@ export default function Page() {
         if(admin){
           router.push('/admin/beranda')
         }else{
-          router.push('/pegawai/dashboard')
+          router.push('/pegawai')
         }
         return 'Berhasil Masukan '
       },
