@@ -8,9 +8,7 @@ import uuid from "react-uuid";
 import { doc } from "firebase/firestore";
 import Image from "next/image";
 import { deleteData } from "@/utils";
-import { format } from "date-fns";
-import { id } from 'date-fns/locale/id';
-
+import { formattedDate } from "@/utils";
 
 export default function TableAbsensi({collection, type, nama_collection_ref}) {
   const { data } = useRealtime(collection);
@@ -25,7 +23,7 @@ export default function TableAbsensi({collection, type, nama_collection_ref}) {
     }
   };
 
-  const formattedDate = (waktu)=> format(waktu, 'EEEE, dd MMMM yyyy HH:mm', { locale: id });
+  
 
 
 

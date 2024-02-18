@@ -18,7 +18,7 @@ export default function FormAdmin() {
       toast.dismiss(toastId);
       toast.success("Foto Berhasil Di Upload");
 
-      toast.promise(signUpAdmin({ ...data, profile }), {
+      toast.promise(signUpAdmin({ ...data, profile, role:"admin" }), {
         loading: "Membuat Akun Baru...",
         success: () => "Berhasil membuat Akun..",
         error: (e) => e.message,

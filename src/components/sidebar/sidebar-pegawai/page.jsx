@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 
@@ -6,6 +7,7 @@ import { RiAdminLine } from "react-icons/ri";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineContactMail } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
+import { signout } from "@/utils";
 
 export default function page() {
   return (
@@ -26,7 +28,7 @@ export default function page() {
         </div>
         <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <CiLogout />
-          <Link href={""}>Log out</Link>
+          <span onClick={signout}>Log out</span>
         </div>
       </div>
     </div>

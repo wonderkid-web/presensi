@@ -17,12 +17,15 @@ export default function Page() {
   const router = useRouter()
 
 
-  const onSubmit = async ({ email, password }) => {
-
+  const onSubmit = async ({email, password, admin}) => {
     toast.promise(siginin(email, password), {
       loading: 'Proses Masuk',
       success: () =>{
-        router.push('/admin')
+        if(admin){
+          router.push('/admin/beranda')
+        }else{
+          router.push('/pegawai/dashboard')
+        }
         return 'Berhasil Masukan '
       },
       error: ()=>{
@@ -55,6 +58,10 @@ export default function Page() {
               placeholder="password"
               {...register("password")}
             />
+          </div>
+          <div className=" mt-4 flex gap-1 items-center">
+            <Label>Masuk sebagai admin?</Label>
+            <input type="checkbox" placeholder="admin" {...register('admin')} />
           </div>
           <div className=" mt-4 flex justify-between gap-10">
             <Button type="submit" className="bg-blue-500 w-full">

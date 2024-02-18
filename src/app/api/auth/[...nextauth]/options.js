@@ -1,4 +1,4 @@
-import { auth, collectionAdmin } from "@/firebase/config";
+import { auth, collectionAdmin, collectionPegawai } from "@/firebase/config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getDoc, getDocs, query, where } from "firebase/firestore";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -21,21 +21,34 @@ export const options = {
         );
 
         if (user) {
-          let filterUser;
+          let filterUser, filterAdmin;
           try {
             const queryUser = query(
-              collectionAdmin,
+              collectionPegawai,
               where("email", "==", credentials.email)
             );
             const getUser = await getDocs(queryUser);
 
             filterUser = getUser.docs.map((item) => ({ ...item.data() }));
+
+            const queryAdmin = query(
+              collectionAdmin,
+              where("email", "==", credentials.email)
+            );
+            const getAdmin = await getDocs(queryAdmin);
+
+            filterAdmin = getAdmin.docs.map((item) => ({ ...item.data() }));
           } catch (error) {
             console.log("error di authorize");
           }
 
           // Any object returned will be saved in `user` property of the JWT
-          return filterUser[0];
+          if(filterUser[0]){
+            return filterUser[0]
+          }
+
+          return filterAdmin[0]
+
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;

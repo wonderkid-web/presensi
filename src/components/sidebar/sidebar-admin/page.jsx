@@ -20,10 +20,10 @@ export default function page() {
     <div className=" border shadow bg-white">
       <div>
       <h1 className=" px-6 py-3 text-xl font-semibold border-b">Admin</h1>
-        <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
+        {/* <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <RiAdminLine />
           <Link href={"/admin"}>Admin</Link>
-        </div>
+        </div> */}
         <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <AiOutlineHome />
           <Link href={"/admin/beranda"}>Beranda</Link>

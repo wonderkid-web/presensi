@@ -1,15 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { addIzin, signUpAdmin, uploadImage } from "@/utils";
+import { addIzin, formattedDateIzin, uploadImage } from "@/utils";
 import { useSession } from "next-auth/react";
+import { DayPicker } from "react-day-picker";
+import { format, parseISO } from "date-fns";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { id } from "date-fns/locale/id";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function FormIzin() {
   const { data: session } = useSession();
+  const [selectedDay, setSelectedDay] = useState();
   const [image, setImage] = useState("");
   const { register, handleSubmit, reset } = useForm();
 
@@ -19,7 +30,13 @@ export default function FormIzin() {
       const bukti = await uploadImage(image);
       toast.dismiss(toastId);
       toast.success("Foto Berhasil Di Upload");
-      const payload = { ...session.user, ...data, bukti, status: "pending" }
+      const payload = {
+        ...session.user,
+        ...data,
+        bukti,
+        status: "pending",
+        tanggal: formattedDateIzin(selectedDay),
+      };
       toast.promise(addIzin(payload), {
         loading: "Membuat Izin Baru...",
         success: () => "Berhasil membuat izin..",
@@ -70,7 +87,48 @@ export default function FormIzin() {
             placeholder="Tulis Alasan kamu disini.."
           ></textarea>
         </div>
-        <div className="mt-4 col-span-full">
+        <div className=" mt-4">
+          <label
+            htmlFor="message"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Tanggal Izin
+          </label>
+          <Popover>
+            <PopoverTrigger>
+              <Button
+                type="button"
+                variant={"outline"}
+                className={cn(
+                  "w-[240px] pl-3 text-left font-normal",
+                  !selectedDay && "text-muted-foreground"
+                )}
+              >
+                {selectedDay ? (
+                  format(selectedDay, "PPP")
+                ) : (
+                  <span>Pick a date</span>
+                )}
+                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <DayPicker
+                mode="single"
+                locale={id}
+                selected={selectedDay}
+                onSelect={(date) => {
+                  const isoDate = date.toISOString();
+                  setSelectedDay(isoDate);
+                }}
+                disabled={(date) =>
+                  date < new Date() || date < new Date("1900-01-01")
+                }
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+        <div className="mt-4">
           <label
             htmlFor="message"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

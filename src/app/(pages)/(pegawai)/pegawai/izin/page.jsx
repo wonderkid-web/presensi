@@ -1,8 +1,11 @@
+"use client"
 import FormIzin from "@/components/admin/form/FormIzin";
 import TableIzinUser from "@/components/admin/table/TableIzinUser";
+import useRole from "@/hooks/useRole";
 import React from "react";
 
 export default function page() {
+  
   return (
     <div>
       <FormIzin />

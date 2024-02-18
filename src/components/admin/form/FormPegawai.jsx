@@ -31,7 +31,7 @@ export default function FormPegawai() {
         success: () => "Berhasil membuat Akun..",
         error: (e) => e.message,
       });
-      reset();
+      // reset();
     } catch (error) {
       toast.error(error.message);
     }

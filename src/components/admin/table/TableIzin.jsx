@@ -7,7 +7,7 @@ import { collectionAdmin, collectionIzin, store } from "@/firebase/config";
 import uuid from "react-uuid";
 import { doc } from "firebase/firestore";
 import Image from "next/image";
-import { deleteData, updateStatus } from "@/utils";
+import { deleteData, formattedDateIzin, updateStatus } from "@/utils";
 
 export default function TableIzin() {
   const { data } = useRealtime(collectionIzin);
@@ -70,6 +70,12 @@ export default function TableIzin() {
               scope="col"
               className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase"
             >
+              Tanggal Izin
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase"
+            >
               Keterangan
             </th>
             <th
@@ -119,6 +125,9 @@ export default function TableIzin() {
                 </td>    
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
                   {item?.no_hp}
+                </td>    
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                  {formattedDateIzin(item.tanggal)}
                 </td>    
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
                   {item.keterangan}

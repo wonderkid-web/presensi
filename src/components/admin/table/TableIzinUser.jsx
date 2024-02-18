@@ -1,38 +1,21 @@
 "use client";
 
 import { IoIosFemale, IoIosMale } from "react-icons/io";
-import { toast } from "sonner";
+import { CgDanger } from "react-icons/cg";
+import { FaRegSquareCheck } from "react-icons/fa6";
 import { collectionIzin, store } from "@/firebase/config";
 import uuid from "react-uuid";
-import { doc } from "firebase/firestore";
 import Image from "next/image";
-import { deleteData, updateStatus } from "@/utils";
 import useRealtime from "@/hooks/useRealtime";
 import { useSession } from "next-auth/react";
+import { format, parseISO } from "date-fns";
+import { id } from "date-fns/locale/id";
+import { formattedDateIzin } from "@/utils";
 
 export default function TableIzinUser() {
-  const session = useSession()
+  const session = useSession();
 
   const { data } = useRealtime(collectionIzin);
-
-  const deleteIzin = async (user) => {
-    try {
-      const izinDocRef = doc(store, "izin", user.id);
-      await deleteData(izinDocRef, "Izin");
-    } catch (error) {
-      toast.error(error.message);
-      toast.error("Gagal Menghapus Izin");
-    }
-  };
-  const aprove = async (user) => {
-    try {
-      const izinDocRef = doc(store, "izin", user.id);
-      await updateStatus(izinDocRef, "Status");
-    } catch (error) {
-      toast.error(error.message);
-      toast.error("Gagal Menghapus Izin");
-    }
-  };
 
   if (data)
     return (
@@ -73,6 +56,12 @@ export default function TableIzinUser() {
               scope="col"
               className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase"
             >
+              Tanggal Izin
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase"
+            >
               Keterangan
             </th>
             <th
@@ -87,69 +76,69 @@ export default function TableIzinUser() {
             >
               Status
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
-            >
-              Action
-            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
           {data.length ? (
-            data?.filter(item=>item.email === session.data.user.email).map((item, i) => (
-              <tr key={uuid()} className="text-slate-600 border text-center">
-                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                  {item.nip}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
-                  {item.nama}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
-                  <div className="h-11 w-11 rounded-full overflow-hidden relative mx-auto">
-                    <Image
-                      className="object-cover"
-                      src={item.bukti}
-                      alt="Alternatif Musuh"
-                      fill
-                      sizes="100vw"
-                    />
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 flex gap-2 items-center justify-center">
-                  {item.jenis_kelamin == "l" ? "laki-laki" : "perempuan"}
-                  {item.jenis_kelamin == "l" ? <IoIosFemale /> : <IoIosMale />}
-                </td>    
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                  {item?.no_hp}
-                </td>    
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                  {item.keterangan}
-                </td>    
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                  {item.alasan}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                  {item.status}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium flex justify-between gap-2 mt-2">
-                  <button
-                    onClick={() => deleteIzin(item)}
-                    type="button"
-                    className="inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg border border-transparent text-red-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            data
+              ?.filter((item) => item.email === session?.data?.user?.email)
+              .map((item, i) => (
+                <tr key={uuid()} className="text-slate-600 border text-center">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                    {item.nip}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
+                    {item.nama}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
+                    <div className="h-11 w-11 rounded-full overflow-hidden relative mx-auto">
+                      <Image
+                        className="object-cover"
+                        src={item.bukti}
+                        alt="Alternatif Musuh"
+                        fill
+                        sizes="100vw"
+                      />
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 flex gap-2 items-center justify-center">
+                    {item.jenis_kelamin == "l" ? "laki-laki" : "perempuan"}
+                    {item.jenis_kelamin == "l" ? (
+                      <IoIosFemale />
+                    ) : (
+                      <IoIosMale />
+                    )}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                    {item?.no_hp}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                    {formattedDateIzin(item.tanggal)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                    {item.keterangan}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                    {item.alasan}
+                  </td>
+                  <td
+                    className={`px-6 py-4 whitespace-nowrap text-sm text-white font-bold dark:text-gray-200`}
                   >
-                    Hapus
-                  </button>
-                  <button
-                    onClick={() => aprove(item)}
-                    type="button"
-                    className="inline-flex items-center gap-x-2 text-xs p-1 font-semibold rounded-lg border border-transparent text-white bg-emerald-400 hover:bg-emerald-500 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                  >
-                    Setujui
-                  </button>
-                </td>
-              </tr>
-            ))
+                    <div
+                      className={`flex gap-1 items-center text-white font-extrabold p-1 rounded-md text-xs ${
+                        item.status == "pending" ? "bg-red-500" : "bg-green-500"
+                      }`}
+                    >
+                      <span>{item.status}</span>
+                      {item.status == "pending" ? (
+                        <CgDanger />
+                      ) : (
+                        <FaRegSquareCheck />
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))
           ) : (
             <tr>
               <td colSpan={9}>

@@ -4,7 +4,6 @@ import { addDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import React from "react";
 import { BsPersonCheck } from "react-icons/bs";
-import { BsFileEarmarkPerson } from "react-icons/bs";
 import { IoMdExit } from "react-icons/io";
 import { toast } from "sonner";
 

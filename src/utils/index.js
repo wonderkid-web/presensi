@@ -5,10 +5,11 @@ import {
   collectionPegawai,
   storage,
 } from "@/firebase/config";
+import { format, parseISO } from "date-fns";
+import { id } from "date-fns/locale/id";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateCurrentUser,
 } from "firebase/auth";
 import { addDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -43,7 +44,6 @@ export const signUp = async (user) => {
       return newUser.id;
     }
   } catch (error) {
-    console.log(error.message);
     return error.message;
   }
 };
@@ -84,9 +84,8 @@ export const deleteData = async (docRef, subject) => {
   });
 };
 
-
 export const updateStatus = async (docRef, subject) => {
-  toast.promise(updateDoc(docRef, {status: "distuju"}), {
+  toast.promise(updateDoc(docRef, {status: "disetujui"}), {
     loading: `Proses Menyetujui Surat ${subject}`,
     success: () => "Proses Berhasil",
     error: () => "Proses Gagal",
@@ -105,3 +104,10 @@ export const addIzin = async (user) => {
     return error.message;
   }
 };
+
+export const formattedDate = (waktu)=> format(waktu, 'EEEE, dd MMMM yyyy HH:mm', { locale: id });
+
+export const formattedDateIzin = (waktu)=> {
+  const dateObject = parseISO(waktu);
+  return format(dateObject, 'EEEE, dd MMMM yyyy', { locale: id })
+}
