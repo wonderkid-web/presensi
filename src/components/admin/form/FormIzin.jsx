@@ -35,7 +35,8 @@ export default function FormIzin() {
         ...data,
         bukti,
         status: "pending",
-        tanggal: formattedDateIzin(selectedDay),
+        tanggal: selectedDay,
+        // tanggal: formattedDateIzin(selectedDay),
       };
       toast.promise(addIzin(payload), {
         loading: "Membuat Izin Baru...",

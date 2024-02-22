@@ -109,5 +109,6 @@ export const formattedDate = (waktu)=> format(waktu, 'EEEE, dd MMMM yyyy HH:mm',
 
 export const formattedDateIzin = (waktu)=> {
   const dateObject = parseISO(waktu);
+  console.log(dateObject)
   return format(dateObject, 'EEEE, dd MMMM yyyy', { locale: id })
 }
