@@ -1,11 +1,12 @@
 "use client"
 import FormIzin from "@/components/admin/form/FormIzin";
 import TableIzinUser from "@/components/admin/table/TableIzinUser";
-import useRole from "@/hooks/useRole";
 import React from "react";
 
-export default function page() {
+export default function Page() {
   
+console.log("FormIzin", FormIzin);
+console.log("TableIzinUser", TableIzinUser);
   return (
     <div>
       <FormIzin />
