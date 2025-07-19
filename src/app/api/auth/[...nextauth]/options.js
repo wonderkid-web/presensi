@@ -1,6 +1,6 @@
 import { auth, collectionAdmin, collectionPegawai } from "@/firebase/config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { getDoc, getDocs, query, where } from "firebase/firestore";
+import { getDocs, query, where } from "firebase/firestore";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const options = {

@@ -105,7 +105,8 @@ export const addIzin = async (user) => {
   }
 };
 
-export const formattedDate = (waktu)=> format(waktu, 'EEEE, dd MMMM yyyy HH:mm', { locale: id });
+// export const formattedDate = (waktu)=> format(waktu, 'EEEE, dd MMMM yyyy HH:mm', { locale: id });
+export const formattedDate = (waktu)=> format(waktu && typeof waktu.toDate === 'function' ? waktu.toDate() : waktu, 'EEEE, dd MMMM yyyy HH:mm', { locale: id });
 
 export const formattedDateIzin = (waktu)=> {
   const dateObject = parseISO(waktu);

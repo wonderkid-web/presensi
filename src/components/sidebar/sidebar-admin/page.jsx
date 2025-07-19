@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 // icons
@@ -12,12 +12,15 @@ import { FaUsersViewfinder } from "react-icons/fa6";
 import { LuClipboardList } from "react-icons/lu";
 import { FaRegListAlt } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
+import { IoNewspaperOutline, IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { signout } from "@/utils";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 export default function Page() {
   const { data: session } = useSession();
+  const [isLaporanOpen, setIsLaporanOpen] = useState(false);
+
   return (
     <div className=" border shadow bg-white">
       <div>
@@ -42,34 +45,64 @@ export default function Page() {
           <RiAdminLine />
           <Link href={"/admin"}>Admin</Link>
         </div> */}
-        <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
+        <Link href={"/admin/beranda"} className="px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <AiOutlineHome />
-          <Link href={"/admin/beranda"}>Beranda</Link>
-        </div>
-        <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
+          <span>Beranda</span>
+        </Link>
+        <Link href={"/admin/data-pegawai"} className="px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <HiOutlineUserGroup />
-          <Link href={"/admin/data-pegawai"}>Data pegawai</Link>
-        </div>
-        <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
+          <span>Data pegawai</span>
+        </Link>
+        <Link href={"/admin/data-user"} className="px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <LuUser2 />
-          <Link href={"/admin/data-user"}>Data user</Link>
-        </div>
-        <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
+          <span>Data user</span>
+        </Link>
+        <Link href={"/admin/data-jabatan"} className="px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <FaUsersViewfinder />
-          <Link href={"/admin/data-jabatan"}>Data jabatan</Link>
-        </div>
-        <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
+          <span>Data jabatan</span>
+        </Link>
+        <Link href={"/admin/data-absen"} className="px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <LuClipboardList />
-          <Link href={"/admin/data-absen"}>Data absen</Link>
-        </div>
-        <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
+          <span>Data absen</span>
+        </Link>
+        <Link href={"/admin/data-keterangan"} className="px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
           <FaRegListAlt />
-          <Link href={"/admin/data-keterangan"}>Data keterangan</Link>
+          <span>Data keterangan</span>
+        </Link>
+        
+        {/* Laporan Dropdown */}
+        <div
+          className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 "
+          onClick={() => setIsLaporanOpen(!isLaporanOpen)}
+        >
+          <IoNewspaperOutline />
+          <span>Laporan</span>
+          {isLaporanOpen ? <IoChevronUp /> : <IoChevronDown />}
         </div>
-        <div className=" px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 ">
+        {isLaporanOpen && (
+          <div className="pl-10">
+            <Link href="/admin/laporan/harian" className="px-6 py-2 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2">
+              <span>- Harian</span>
+            </Link>
+            <Link href="/admin/laporan/mingguan" className="px-6 py-2 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2">
+              <span>- Mingguan</span>
+            </Link>
+            <Link href="/admin/laporan/bulanan" className="px-6 py-2 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2">
+              <span>- Bulanan</span>
+            </Link>
+            <Link href="/admin/laporan/tahunan" className="px-6 py-2 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2">
+              <span>- Tahunan</span>
+            </Link>
+          </div>
+        )}
+
+        <button
+          onClick={signout}
+          className="px-6 py-4 cursor-pointer hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2 w-full text-left"
+        >
           <CiLogout />
-          <span onClick={signout}>Log out</span>
-        </div>
+          <span>Log out</span>
+        </button>
       </div>
     </div>
   );

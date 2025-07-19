@@ -11,9 +11,10 @@ export default function Page() {
   const {data} = useSession()
 
   const absenMasuk = async () => {
+    const waktuMasuk = new Date()
     const dataAbsenMasuk = {
       ...data.user,
-      waktu: Date.now(),
+      waktu: waktuMasuk,
     };
     toast.promise(addDoc(collectionAbsensiMasuk, dataAbsenMasuk), {
       loading: "Proses Menambahkan Absen Masuk",
@@ -26,9 +27,10 @@ export default function Page() {
     });
   };
   const absensiKeluar = async () => {
+    const waktuKeluar = new Date()
     const dataAbsenKeluar = {
       ...data.user,
-      waktu: Date.now(),
+      waktu: waktuKeluar,
     };
     toast.promise(addDoc(collectionAbsensiKeluar, dataAbsenKeluar), {
       loading: "Proses Menambahkan Absen Keluar",

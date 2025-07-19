@@ -2,10 +2,7 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TableAbsensi from "@/components/admin/table/TableAbsen";
-import { toast } from "sonner";
-import { addDoc } from "firebase/firestore";
 import { collectionAbsensiKeluar, collectionAbsensiMasuk } from "@/firebase/config";
-import { useSession } from "next-auth/react";
 
 export default function Page() {
   return (
