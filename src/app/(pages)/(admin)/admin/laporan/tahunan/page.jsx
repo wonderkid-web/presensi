@@ -12,6 +12,7 @@ export default function LaporanTahunan() {
   const tableRef = useRef(null);
 
   useEffect(() => {
+    console.log("useEffect triggered for selectedYear:", selectedYear);
     fetchLaporanData(selectedYear);
   }, [selectedYear]);
 

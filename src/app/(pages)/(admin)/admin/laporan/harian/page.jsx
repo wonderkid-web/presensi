@@ -13,10 +13,12 @@ export default function LaporanHarian() {
   const tableRef = useRef(null);
 
   useEffect(() => {
+    console.log("useEffect triggered for selectedDate:", selectedDate);
     fetchLaporanData(selectedDate);
   }, [selectedDate]);
 
   const fetchLaporanData = async (date) => {
+    console.log("fetchLaporanData called with date:", date);
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
 

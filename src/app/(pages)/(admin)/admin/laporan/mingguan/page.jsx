@@ -14,6 +14,7 @@ export default function LaporanMingguan() {
   const tableRef = useRef(null);
 
   useEffect(() => {
+    console.log("useEffect triggered for selectedDate:", selectedDate);
     fetchLaporanData(selectedDate);
   }, [selectedDate]);
 

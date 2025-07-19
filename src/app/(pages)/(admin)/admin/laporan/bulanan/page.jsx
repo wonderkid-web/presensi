@@ -13,6 +13,7 @@ export default function LaporanBulanan() {
   const tableRef = useRef(null);
 
   useEffect(() => {
+    console.log("useEffect triggered for selectedMonth:", selectedMonth);
     fetchLaporanData(selectedMonth);
   }, [selectedMonth]);
 
