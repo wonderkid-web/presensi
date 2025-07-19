@@ -117,7 +117,7 @@ export default function LaporanTahunan() {
       <table ref={tableRef} className="min-w-full bg-white text-sm">
         <thead className="bg-gray-100">
           <tr>
-            <th className="py-2 px-4">NIP</th>
+
             <th className="py-2 px-4">Nama</th>
             <th className="py-2 px-4">Hadir</th>
             <th className="py-2 px-4">Izin</th>
@@ -128,7 +128,7 @@ export default function LaporanTahunan() {
         <tbody>
           {laporanData.map((item) => (
             <tr key={item.id} className="text-center border-b">
-              <td className="py-2 px-4">{item.nip}</td>
+
               <td className="py-2 px-4 text-left">{item.nama}</td>
               <td className="py-2 px-4">{item.hadir}</td>
               <td className="py-2 px-4">{item.izin}</td>
